@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import subprocess
 
 model = joblib.load('loan_status_predict')
 
@@ -49,13 +50,25 @@ data = pd.DataFrame({
     'Property_Area': [Property_Area]
 })
 
+data.to_csv('data.csv', index=False)
+
+
 if st.button('Check'):
 
     prediction = model.predict(data)[0]
 
     if prediction == 1:
         display = "Loan is approved"
+        st.title(display)
+        cmd_command = 'streamlit run ./cus_profile.py'
+        subprocess.run(cmd_command, shell=True)
     else:
         display = "Loan is not approved"
+        st.title(display)
+        cmd_command = 'streamlit run ./cus_profile.py'
+        subprocess.run(cmd_command, shell=True)
 
-    st.title(display)
+    
+
+
+
