@@ -12,11 +12,11 @@ Married = st.selectbox('Married', ['Yes', 'No'])
 Dependents = st.number_input('Dependents')
 Education = st.selectbox('Education', ['Graduate', 'Not Graduate'])
 Self_Employed = st.selectbox('Self Employed', ['Yes', 'No'])
-ApplicantIncome = st.number_input('Applicant Income per Annum (In dollars)')
-CoapplicantIncome = st.number_input('Co-Applicant Income per Annum (In dollars)')
-LoanAmount = st.number_input('Loan Amount (In 1000s of dollars)')
+ApplicantIncome = st.number_input('Applicant Income per Annum (In rupees)') /83
+CoapplicantIncome = st.number_input('Co-Applicant Income per Annum (In rupees)')/83
+LoanAmount = st.number_input('Loan Amount (In lakhs)')
 Loan_Amount_Term = st.number_input('Loan Term (In Months)')
-Credit_History = st.number_input('Credit History')
+Credit_History = (st.number_input('Credit Score') + 100)/1000 
 Property_Area = st.selectbox('Property Area', ['Rural', 'Semiurban', 'Urban'])
 
 # Encode categorical variables
@@ -46,7 +46,7 @@ data = pd.DataFrame({
     'LoanAmount': [LoanAmount],
     'Loan_Amount_Term': [Loan_Amount_Term],
     'Credit_History': [Credit_History],
-    'Property_Area': [Property_Area],
+    'Property_Area': [Property_Area]
 })
 
 if st.button('Check'):
