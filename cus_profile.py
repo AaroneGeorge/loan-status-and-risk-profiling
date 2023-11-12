@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 df = pd.read_csv('data.csv')
 
@@ -113,3 +115,65 @@ st.title("Customer Risk Score:")
 st.write(f"Customer Risk Score: {customer_risk_score}")
 
 
+user_data = pd.read_csv('data.csv')
+loan_dataset = pd.read_csv('loan_dataset.csv')
+
+def dataclean(data):
+    data = data.drop('Loan_ID',axis=1)
+    columns = ['Gender','Dependents','LoanAmount','Loan_Amount_Term']
+    data = data.dropna(subset=columns)
+    data['Self_Employed'] =data['Self_Employed'].fillna(data['Self_Employed'].mode()[0])
+    data['Credit_History'] =data['Credit_History'].fillna(data['Credit_History'].mode()[0])
+    data['Dependents'] =data['Dependents'].replace(to_replace="3+",value='4')
+    data['Dependents'].unique()
+    data['Loan_Status'].unique()
+    data['Gender'] = data['Gender'].map({'Male':1,'Female':0}).astype('int')
+    data['Married'] = data['Married'].map({'Yes':1,'No':0}).astype('int')
+    data['Education'] = data['Education'].map({'Graduate':1,'Not Graduate':0}).astype('int')
+    data['Self_Employed'] = data['Self_Employed'].map({'Yes':1,'No':0}).astype('int')
+    data['Property_Area'] = data['Property_Area'].map({'Rural':0,'Semiurban':2,'Urban':1}).astype('int')
+    data['Loan_Status'] = data['Loan_Status'].map({'Y':1,'N':0}).astype('int')
+
+    return data
+
+
+loan_dataset = dataclean(loan_dataset)
+
+plt.figure(figsize=(16, 14)) 
+
+# Set the size of the entire image
+plt.figure(figsize=(21 , 19))
+
+
+# Create a heatmap of correlations between datasets
+correlation_matrix = pd.concat([user_data, loan_dataset], axis=1).corr()
+
+# Create the heatmap with consistent text size
+heatmap = sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", annot_kws={"size": 13}, cbar_kws={'label': 'Correlation'})
+
+# Increase the font size for x-axis and y-axis labels
+plt.xticks(rotation=45, ha='right', fontsize=15)
+plt.yticks(fontsize=15)
+
+# Adjust the outer axis to scale the heatmap
+plt.subplots_adjust(left=0.1 , right=0.9, top=0.9, bottom=0.1)
+
+# Display the heatmap
+st.title("Heatmap Comparison of User Data and Loan Dataset")
+st.pyplot(heatmap.get_figure())
+
+
+# scatterplot : income v/s loan Amount
+plt.figure(figsize=(10, 8))
+
+# Create a scatter plot of income versus loan amount
+scatter_plot = sns.scatterplot(x='ApplicantIncome', y='LoanAmount', data=loan_dataset, palette='Set1')
+scatter_plot = sns.scatterplot(x='ApplicantIncome', y='LoanAmount', data=user_data, marker = 'X' , color = 'red')
+
+# Customize the plot
+plt.title('Income vs Loan Amount Scatter Plot')
+plt.xlabel('Applicant Income')
+plt.ylabel('Loan Amount')
+
+# Display the scatter plot
+st.pyplot(scatter_plot.get_figure())
