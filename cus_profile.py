@@ -72,20 +72,44 @@ def riskScore(roi, pti, raroc, ltv, dti):
 
 st.title("Customer Risk Profile")
 
+# Display ROI with description
+st.markdown("## ROI (Return On Investment): ")
+st.text("Return On Investment (ROI) is calculated based on the loan term.")
+st.text("ROI = (Interest Rate * 100) / (Loan Term (in years) / 12)")
 roi_value = roi(Loan_Amount_Term)
-st.markdown("## ROI (Return On Investment): "+ str(roi_value))
+st.write(f"ROI Value: {roi_value}")
 
+# Display PTI with description
+st.markdown("## PTI (Payment To Income): ")
+st.text("Payment To Income (PTI) ratio represents the percentage of income used for loan payments.")
+st.text("PTI = (Total Loan Amount * 100) / Total Income")
 pti_value = pti(LoanAmount, ApplicantIncome + CoapplicantIncome)
-st.markdown("## PTI (Payment To Income): "+ str(pti_value))
+st.write(f"PTI Value: {pti_value}")
 
+# Display RAROC with description
+st.markdown("## RAROC (Risk Adjusted Return On Capital): ")
+st.text("Risk Adjusted Return On Capital (RAROC) considers risk when calculating return on investment.")
+st.text("RAROC = Expected Return / (Expected Return + Risk Capital)")
 raroc_value = raroc(LoanAmount, Loan_Amount_Term)
-st.markdown("## RAROC (Risk Adjusted Return On Capital): "+ str(raroc_value))
+st.write(f"RAROC Value: {raroc_value}")
 
+# Display LTV with description
+st.markdown("## LTV (Loan To Value): ")
+st.text("Loan To Value (LTV) ratio represents the percentage of the loan amount to the appraised value of the property.")
+st.text("LTV = (Total Loan Amount * 100) / Appraised Value of Property")
 ltv_value = ltv(LoanAmount)
-st.markdown("## LTV (Loan To Value) : "+ str(ltv_value))
+st.write(f"LTV Value: {ltv_value}")
 
+# Display DTI with description
+st.markdown("## DTI (Debt To Income): ")
+st.text("Debt To Income (DTI) ratio represents the percentage of income used for debt payments.")
+st.text("DTI = (Total Loan Amount * 12 * 100) / (Loan Term (in years) * Total Income)")
 dti_value = dti(Loan_Amount_Term, LoanAmount, ApplicantIncome + CoapplicantIncome)
-st.markdown("## DTI (Debt To Income) : "+ str(dti_value))
+st.write(f"DTI Value: {dti_value}")
 
+# Calculate and Display Customer Risk Score
 customer_risk_score = riskScore(roi_value, pti_value, raroc_value, ltv_value, dti_value)
-st.title("Customer Risk Score: "+ str(customer_risk_score))
+st.title("Customer Risk Score:")
+st.write(f"Customer Risk Score: {customer_risk_score}")
+
+
