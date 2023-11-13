@@ -16,3 +16,4 @@ TO RUN THIS APP LOCALLY:
 ![4](https://github.com/AaroneGeorge/loan-status-and-risk-profiling/assets/96471433/7cae7ce9-8766-40a8-b96d-a9fa61443fe3)
 ![5](https://github.com/AaroneGeorge/loan-status-and-risk-profiling/assets/96471433/2f253711-abd1-4628-b66f-9fd6e23c533a)
 ![6](https://github.com/AaroneGeorge/loan-status-and-risk-profiling/assets/96471433/ca9285c0-5c10-4772-9eaa-3669d592fc2a)
+![7](https://github.com/AaroneGeorge/loan-status-and-risk-profiling/assets/96471433/8c0160ec-c5df-4653-9560-a569406fe51a)
